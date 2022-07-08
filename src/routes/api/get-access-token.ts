@@ -16,15 +16,9 @@ console.log({
 })
 
 router.get('/', (req, res): any => {
-  const jwt = req.headers.authorization
-  console.log(jwt)
-  if (jwt == null) return res.status(401).send('No JWT provided')
-
-  const identity = jwt?.startsWith('anonymous')
-    ? jwt?.split('_')[1]
-    : null
-
-  if (identity == null) return res.status(401).send('No identity provided')
+  const identity = req.headers.authorization
+  console.log(identity)
+  if (identity == null) return res.status(401).send('No JWT provided')
 
   const { AccessToken } = twilio.jwt
   const { ChatGrant } = AccessToken
